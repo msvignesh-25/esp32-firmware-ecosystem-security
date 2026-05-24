@@ -115,4 +115,22 @@ Physical USB Access
 - Connected a Logic Analyzer directly to the onboard SPI flash interface lines. Captured raw transmission transitions at boot time, proving that binary instructions transit the physical circuit board tracks completely unencrypted.
 
 ### Stage 3 ─ Binary Structure Analysis
-- 
+- Used `binwalk` to scan the raw binary file. Reconstructed the flash partition table layout and identified invididual application image headers.
+
+### Stage 4 ─ Credentials Revealed
+- Passed the raw binary data segments using GNU utilities like *strings* & *grep*. A single extended regular expression could extract the plaintext WiFi credentials and also the full HTML source code of the captive portal.<br>Command used: `strings firmware.bin | grep -E -i "ssid|password"`
+
+### Stage 5 ─ Ghidra Reverse Engineering
+- Imported the application parition block into Ghidra using the Xtensa LE 32-bit processor definitions. Traced cross-references for the identified credential string offsets, pointing directly back to the data definitions inside the initialization blocks of the compiled `setup()` routine.<br>Used the GNU utility `sed` to filter the text
+
+### Stage 6 ─ UART Bootloader Access Validation
+- Ran an inspection of the internal eFuse mapping blocks (Refer to the image). The silicon registers returned and it's confirmed that zero cryptographic hardware protections were initialized.
+
+### Stage 7 ─ Cyber-Physical Vulnerability Assessment
+
+* Compiled four distinct security findings modeled closely after standard enterprise CVE metrics:
+
+|                 Title                      | Severity|            CVSS v3.1 Vector                 |        Impact Summary                 |
+|--------------------------------------------|---------|---------------------------------------------|---------------------------------------|
+| Plaintext WiFi credentials in Static Memory| Critical| CVSS:3.1/AV:P/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:N| Exposure of organizational network entry points
+| Unauthenticated UART Bootloader Interface  | High    | CV33:3.1/AV:P/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H| Device firmware integiry compromised  |
