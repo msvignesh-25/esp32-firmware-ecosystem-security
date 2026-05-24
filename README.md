@@ -132,5 +132,36 @@ Physical USB Access
 
 |                 Title                      | Severity|            CVSS v3.1 Vector                 |        Impact Summary                 |
 |--------------------------------------------|---------|---------------------------------------------|---------------------------------------|
-| Plaintext WiFi credentials in Static Memory| Critical| CVSS:3.1/AV:P/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:N| Exposure of organizational network entry points
+| Plaintext WiFi credentials in Static Memory| Critical| CVSS:3.1/AV:P/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:N| Exposure of organizational network entry points |
 | Unauthenticated UART Bootloader Interface  | High    | CV33:3.1/AV:P/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H| Device firmware integiry compromised  |
+| Factory-Default Open Silicon eFuse State   | High    | CV33:3.1/AV:P/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H| Lack of hardware-enforced roots of trust |
+| Cleartext Web Infrastructure Assembly      | Medium  | CV33:3.1/AV:P/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N| Full reconstruction of backend application endpoints|
+
+- AV: Attack Vector; AC: Attack Complexity; PR: Privileges Required; UI: User Interaction; S:Scope; C:Confidentiality; I:Integrity; A:Availability
+- The metric *Scope* has its value as **Changed**, which means that the attacker can also compromise the entire WiFi network due to credentials cpature.
+
+### Stage 8 ─ Defensive Mitigations & Firmware Lockdown
+
+To avoid destructive, permanent burning of the Dev Kit's eFuses, hardening behaviors were verified through software-level environement simulation.
+
+- **Before Hardening:** Open-source utilities can communicate with the chip's boot ROM interface, allowing anyone to freely read from or write to any part of the flash memory without any restriction.
+- **Simulated Hardening State:** Forcing the bootloader to restriction flags (`--before no_reset`), simulates how a secure device would behave when its ROM interface disables automatic communication. The terminal shows a fatal connection error, blocking any access to device's data.
+- Documented the execution flows required to permanently burn the eFuses for production deployments
+
+---
+
+## Key Findings
+1. In-transital confidential data can be extracted from non-encrypted binaries with Open-Source tools.
+2. This entire extraction and mapping workflow can be deployed on a standard Raspberry Pi Zero W, making it highly effective for on-site physical breaches.
+
+---
+
+## Skills Demonstrated
+- Embedded Microcontroller Firmware Extraction & Reconstruction
+- Binary RE & Disassembly (`Ghidra`/Xtensa assembly interpretation)
+- Serial Bus (SPI/UART) interception
+- Cryptographic Hardening Analysis
+
+---
+
+**This project belongs to a series focused on IoT security frameworks.<br>« [Part 1 ─ Multi-Layer Cyber-Physical Network Attack Chain](https://github.com/msvignesh-25/layer2-to-physical-attack-chain)**
