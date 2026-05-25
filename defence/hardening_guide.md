@@ -79,7 +79,7 @@ COMPARISON TABLE:
 
 PART B — DISABLE UART DOWNLOAD MODE (PERMANENT)
 -------------------------------------------------
-⚠️  <span style="color:red">IRREVERSIBLE — BURNS EFUSE — RUN AT YOUR OWN RISK</span>
+⚠️  **IRREVERSIBLE — BURNS EFUSE — RUN AT YOUR OWN RISK**
 
 Command:
   `espefuse.py --port /dev/ttyUSB0 burn_efuse UART_DOWNLOAD_DIS`
@@ -99,7 +99,7 @@ eFuse state after burning:
 
 PART C — FLASH ENCRYPTION (PERMANENT)
 ---------------------------------------
-⚠️  <span style="color:red">IRREVERSIBLE — BURNS EFUSE — LOSS OF KEY = PERMANENT BRICK</span>
+⚠️  **IRREVERSIBLE — BURNS EFUSE — LOSS OF KEY = PERMANENT BRICK**
 
 Flash encryption uses AES-256 hardware acceleration built into
 the ESP32. Once enabled, all flash read/write operations are
@@ -135,7 +135,7 @@ Effect on attack:
 
 PART D — SECURE BOOT V2 (PERMANENT)
 --------------------------------------
-⚠️  <span style="color:red">IRREVERSIBLE — BURNS EFUSE — WRONG KEY = PERMANENT BRICK</span>
+⚠️  **IRREVERSIBLE — BURNS EFUSE — WRONG KEY = PERMANENT BRICK**
 
 Secure boot ensures the ESP32 only executes firmware images signed
 with a specific private key. Unsigned or tampered firmware is
@@ -172,7 +172,7 @@ Effect on attack:
 
 PART E — DISABLE JTAG (PERMANENT)
 -----------------------------------
-⚠️  <span style="color:red">IRREVERSIBLE — disables hardware debug interface permanently</span>
+⚠️  **IRREVERSIBLE — disables hardware debug interface permanently**
 
 Command:
   `espefuse.py --port /dev/ttyUSB0 burn_efuse JTAG_DISABLE`
