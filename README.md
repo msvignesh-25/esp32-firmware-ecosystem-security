@@ -97,10 +97,24 @@ Physical USB Access
 ## Project Structure
 
 ```text
+esp32-firmware-security/
 |
 ├── README.md
 |
-├── 
+├── analysis/
+|       ├── firmware_extraction.md
+|       ├── binwalk_findings.md
+|       └── ghidra_findings.md
+|
+├── defence/
+|       ├── efuse_summary.md
+|       └── hardening_guide.md
+| 
+├── research-notes/
+|       ├── vuln_report.md
+|       └── attack_chain.md
+|
+└── assets/
 
 ```
 
@@ -161,6 +175,15 @@ To avoid destructive, permanent burning of the Dev Kit's eFuses, hardening behav
 - Binary RE & Disassembly (`Ghidra`/Xtensa assembly interpretation)
 - Serial Bus (SPI/UART) interception
 - Cryptographic Hardening Analysis
+
+---
+
+## Screenshots
+
+|                           Evidence                            |                  Purpose                       |
+|---------------------------------------------------------------|------------------------------------------------|
+| [*Binwalk* structural readout](assets/stage3_binwalk-full.png)| Binwalk mapping complete application boundaries|
+| []()
 
 ---
 
