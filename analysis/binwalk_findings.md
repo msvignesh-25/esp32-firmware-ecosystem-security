@@ -74,6 +74,7 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 1162972       0x11BEDC        PEM EC private key
 1163032       0x11BF18        PEM PKCS#8 private key
 ```
+Refer [full binwalk output](../assets/stage3_binwalk-full.png)
 
 ----------------------------------------------------------------
 

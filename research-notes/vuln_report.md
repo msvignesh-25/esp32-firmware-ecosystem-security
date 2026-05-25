@@ -108,7 +108,7 @@ All ESP32 security eFuses remain in factory default state. No hardware-level sec
 All attack vectors documented in VUL-01 through VUL-03 are exploitable as a direct consequences of VUL-04, which is the root cause — the absence of hardware security configuration enables all firmware-level attacks.
 
 ### Remediation
-Refer to [`hardening_guide.md`](defence/hardening_guide.md) for complete step-by-step hardening procedure including key generation, eFuse burn commands, and irreversibility warnings.
+Refer to [hardening_guide](../defence/hardening_guide.md) for complete step-by-step hardening procedure including key generation, eFuse burn commands, and irreversibility warnings.
 
 Priority order:
 1. `UART_DOWNLOAD_DIS` — closes the extraction attack vector entirely

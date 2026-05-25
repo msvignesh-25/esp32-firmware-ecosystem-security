@@ -254,21 +254,23 @@ None of them enabled by default. All of them required before deployment.
 
 ## Timeline Summary
 
-| Time | Action | Result |
-|------|--------|--------|
-| T+0:00 | USB connected, esptool started | Bootloader triggered |
-| T+2:00 | read_flash complete | 4MB firmware.bin on attacker laptop |
-| T+2:30 | binwalk firmware.bin | Full partition map recovered |
-| T+2:40 | strings + grep SSID | WiFi SSID found — line 181 |
-| T+2:50 | strings + sed context | WiFi password recovered — plaintext |
-| T+3:00 | strings HTML grep | Full captive portal source recovered |
-| T+5:00 | Ghidra import + analysis | SSID at 5 memory addresses confirmed |
-| T+6:00 | espefuse.py summary | All security fuses confirmed open |
+| Action | Result |
+|--------|--------|
+| USB connected, esptool started | Bootloader triggered |
+| read_flash complete | 4MB firmware.bin on attacker laptop |
+| binwalk firmware.bin | Full partition map recovered |
+| strings + grep SSID | WiFi SSID found — line 181 |
+| strings + sed context | WiFi password recovered — plaintext |
+| strings HTML grep | Full captive portal source recovered |
+| Ghidra import + analysis | SSID at 5 memory addresses confirmed |
+| espefuse.py summary | All security fuses confirmed open |
 
+```
 **Total time to full credential recovery: under 3 minutes.**  
 **Total time to complete security assessment: under 10 minutes.**  
 **Specialised hardware required: None.**  
 **Cost of attack tools: Zero.**
+```
 
 ---
 

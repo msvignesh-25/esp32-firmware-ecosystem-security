@@ -54,14 +54,16 @@ Results: 5 entries found
 
   Location    | Match Bytes            | Match Value
   ------------|------------------------|------------
-  0x00009944  | 41 69 72 74 65 6c...  | Airtel_[REDACTED]
-  0x00009d64  | 41 69 72 74 65 6c...  | Airtel_[REDACTED]
-  0x0000b224  | 41 69 72 74 65 6c...  | Airtel_[REDACTED]
-  0x0000b524  | 41 69 72 74 65 6c...  | Airtel_[REDACTED]
-  0x00010a92  | 41 69 72 74 65 6c...  | Airtel_[REDACTED]
+  0x00009944  | 41 69 72 74 ...        | Airtel
+  0x00009d64  | 41 69 72 74 ...        | Airtel
+  0x0000b224  | 41 69 72 74 ...        | Airtel
+  0x0000b524  | 41 69 72 74 ...        | Airtel
+  0x00010a92  | 41 69 72 74 ...        | Airtel
 
-Byte sequence confirmed: 41 49 52 54 45 4c = ASCII "AIRTEL"
-(case-insensitive match — actual stored bytes are lowercase "irtel")
+- Refer [SSID Reveal](../assets/Stage5_SSID.png)
+
+Byte sequence confirmed: 41 69 72 74  = ASCII "AIRTEL"
+(case-insensitive match — actual stored bytes are lowercase "airtel")
 
 All 5 locations double-clicked individually. All 5 references
 resolved to a same function in the disassembly

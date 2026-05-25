@@ -10,7 +10,7 @@ ESP32 Firmware Security Analysis | Part 2
 TARGET DEVICE
 -------------
 ```
-ESP32
+ESP32-D0WD-V3 (revision v3.1)
 Flash chip manufacturer : 68 (ISSI / compatible)
 Flash chip device ID    : 4016
 Flash size              : 4MB
@@ -18,6 +18,8 @@ Flash voltage           : 3.3V (determined by strapping pin)
 CPU architecture        : Xtensa LX6 dual-core 32-bit
 
 ```
+Refer [flash memory information](../assets/stage6_flash-id.png)
+
 ----------------------------------------------------------------
 
 EXTRACTION COMMAND

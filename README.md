@@ -126,7 +126,12 @@ esp32-firmware-security/
 - Executed a raw 4MB flash memory read over the serial bus. The target device required zero physical or cryptographic authentication challenges prior to dumping storage blocks.<br>Done through the command `esptool.py --port /dev/ttyUSB0 --baud 115200 read_flash 0x0 ALL firmware.bin`
 
 ### Stage 2 ─ Passive SPI Capture
-- Connected a Logic Analyzer directly to the onboard SPI flash interface lines. Captured raw transmission transitions at boot time, proving that binary instructions transit the physical circuit board tracks completely unencrypted.
+
+Connected a Logic Analyzer directly to the onboard SPI flash interface lines.
+* **Hardware constraint:** Sampling high-frequency (40MHz/80MHz) SPI bus transitions requires precise probing. Using loose logic analyzer leads can weaken the signal and distort the electrical pulses, leading to unstable data captures.
+* **Physical Interception Risk:** Documented how easier it is in the real world to run a physical side-channel audit using a **SOIC-8 IC clip**. By using this clip to get a stable connection on the $CLK$, $MISO$, $MOSI$ and $CS$ pins during boot phase, an attacker can passively capture the raw firmware instructions moving across the circuit tracks.
+
+Here is the [capture](assets/logic2.png) from the logic analyzer showing outcome of line-tapping test. Due to high speed SPI-transmission and loose-probe connections, signals are severely distorted. Without the *clip*, logic analyzer can decode/ capture the boot-phase instructions.
 
 ### Stage 3 ─ Binary Structure Analysis
 - Used `binwalk` to scan the raw binary file. Reconstructed the flash partition table layout and identified invididual application image headers.
@@ -160,7 +165,9 @@ To avoid destructive, permanent burning of the Dev Kit's eFuses, hardening behav
 
 - **Before Hardening:** Open-source utilities can communicate with the chip's boot ROM interface, allowing anyone to freely read from or write to any part of the flash memory without any restriction.
 - **Simulated Hardening State:** Forcing the bootloader to restriction flags (`--before no_reset`), simulates how a secure device would behave when its ROM interface disables automatic communication. The terminal shows a fatal connection error, blocking any access to device's data.
-- Documented the execution flows required to permanently burn the eFuses for production deployments
+- Documented the execution flows required to permanently burn the eFuses for production deployments.
+
+Refer [hardening_guide](defence/hardening_guide.md) for step-by-step procedure to permanently burn the the eFuses. **Proceed at your own risk.**
 
 ---
 
@@ -183,7 +190,11 @@ To avoid destructive, permanent burning of the Dev Kit's eFuses, hardening behav
 |                           Evidence                            |                  Purpose                       |
 |---------------------------------------------------------------|------------------------------------------------|
 | [*Binwalk* structural readout](assets/stage3_binwalk-full.png)| Binwalk mapping complete application boundaries|
-| []()
+| [Ghidra mapping SSID](assets/Stage5_SSID.png)                 | Ghidra Mapping SSID at 5 different locations   |
+| [Ghidra revealing plaintext credentials](assets/Stage5_credentials.png) | Plaintext credentials revealed in the Xtensa assembly plane |
+| [eFuse summary](assets/fuse_summary1.png)                     | eFuse summary indicating open silicon states   |
+| [eFuse summary](assets/fuse_summary2.png)                     |        └── Continuation                        |
+| [Device error](assets/stage8_error.png)                       | Device error successful software hardening simulation |
 
 ---
 
